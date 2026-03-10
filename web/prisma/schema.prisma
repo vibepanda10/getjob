@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleMode {
+  SEEKER
+  HELPER
+  BOTH
+}
+
+enum SwipeAction {
+  INTERESTED
+  PASS
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String?
+  googleId     String?  @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  profile         Profile?
+  swipesFrom      Swipe[]      @relation("SwipeFrom")
+  swipesTo        Swipe[]      @relation("SwipeTo")
+  matchesAsUserA  Match[]      @relation("UserA")
+  matchesAsUserB  Match[]      @relation("UserB")
+  messagesSent    Message[]    @relation("Sender")
+  reportsFiled    Report[]     @relation("Reporter")
+  reportsReceived Report[]     @relation("Reported")
+  creditsWallet   CreditWallet?
+}
+
+model Profile {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  displayName        String
+  anonymousAlias     String
+  roleMode           RoleMode
+  linkedinUrl        String?
+  resumeUrl          String?
+  helperRevealOptIn  Boolean  @default(false)
+  countryCode        String?
+  timezone           String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Swipe {
+  id        String      @id @default(cuid())
+  fromUser  String
+  toUser    String
+  action    SwipeAction
+  createdAt DateTime    @default(now())
+
+  from User @relation("SwipeFrom", fields: [fromUser], references: [id], onDelete: Cascade)
+  to   User @relation("SwipeTo", fields: [toUser], references: [id], onDelete: Cascade)
+
+  @@unique([fromUser, toUser])
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  userAId   String
+  userBId   String
+  createdAt DateTime @default(now())
+
+  userA    User      @relation("UserA", fields: [userAId], references: [id], onDelete: Cascade)
+  userB    User      @relation("UserB", fields: [userBId], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  @@unique([userAId, userBId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  matchId   String
+  senderId  String
+  body      String
+  createdAt DateTime @default(now())
+
+  match  Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  sender User  @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+}
+
+model Report {
+  id             String   @id @default(cuid())
+  reporterId     String
+  reportedUserId String
+  reason         String
+  status         String   @default("PENDING")
+  createdAt      DateTime @default(now())
+
+  reporter     User @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  reportedUser User @relation("Reported", fields: [reportedUserId], references: [id], onDelete: Cascade)
+}
+
+model CreditWallet {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  balance            Int      @default(0)
+  freePostClaimed    Boolean  @default(false)
+  weeklyInterestUsed Int      @default(0)
+  weekWindowStart    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

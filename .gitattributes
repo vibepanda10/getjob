@@ -1,0 +1,21 @@
+* text=auto eol=lf
+
+# Explicitly keep repo assets as text to avoid binary-diff tooling issues
+*.svg text
+*.md text
+*.ts text
+*.tsx text
+*.js text
+*.mjs text
+*.json text
+*.prisma text
+*.css text
+*.yml text
+*.yaml text
+
+# Explicitly treat icon binary formats as binary and keep them out of normal text workflows
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
