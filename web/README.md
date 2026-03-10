@@ -1,0 +1,51 @@
+# GET THAT JOB (web)
+
+Execution scaffold for the GET THAT JOB MVP.
+
+## What is implemented in this phase
+
+- Next.js + TypeScript + Tailwind app scaffold.
+- Core route skeletons:
+  - `/` Landing
+  - `/discover` anonymous discovery cards
+  - `/matches` match/message list
+  - `/profile` onboarding form
+  - `/admin` moderation queue mock
+- Initial Prisma schema for users, profiles, swipes, matches, messages, reports, and credit wallet.
+- API sanity endpoints:
+  - `GET /api/health`
+  - `GET /api/discovery`
+- Prisma singleton client (`lib/prisma.ts`) and seed script (`prisma/seed.mjs`).
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+## Database setup
+
+1. Create PostgreSQL database.
+2. Copy `.env.example` to `.env` and set `DATABASE_URL`.
+3. Generate Prisma client and schema in DB:
+
+```bash
+npm run db:generate
+npm run db:push
+```
+
+4. Seed demo data:
+
+```bash
+npm run db:seed
+```
+
+## Notes
+
+- This is execution scaffolding, not final production logic.
+- Auth, backend APIs, and message retention jobs are next implementation steps.
+- See `NEXT_ACTIONS.md` for the autonomous execution queue.
+- Binary assets were replaced with text-based SVG icon files to avoid branch update issues.
