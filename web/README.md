@@ -43,6 +43,17 @@ npm run db:push
 npm run db:seed
 ```
 
+
+## Authentication (implemented)
+
+- Auth route handler: `app/api/auth/[...nextauth]/route.ts`.
+- NextAuth (v4) is configured with credentials login and optional Google provider when env vars are present.
+- Protected routes: `/matches`, `/profile`, `/admin`.
+- Sign in page: `/login`.
+- Demo accounts:
+  - `helper@getthatjob.dev` / `demo1234`
+  - `admin@getthatjob.dev` / `admin1234`
+
 ## Notes
 
 - This is execution scaffolding, not final production logic.

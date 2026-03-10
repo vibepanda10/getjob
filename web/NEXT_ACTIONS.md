@@ -9,8 +9,8 @@
 
 ## Push 2: auth + DB wiring
 - [x] Add Prisma client setup and seed script.
-- [ ] Implement Auth.js with email/password + Google.
-- [ ] Add protected routes for `/matches`, `/profile`, `/admin`.
+- [x] Implement NextAuth with email/password + Google-ready provider config.
+- [x] Add protected routes for `/matches`, `/profile`, `/admin`.
 
 ## Push 3: matching workflow backend
 - [ ] Add route handlers for swipes and match creation.
@@ -26,5 +26,6 @@ npm run dev
 
 Then check:
 - `http://localhost:3000`
+- `http://localhost:3000/login`
 - `http://localhost:3000/api/health`
 - `http://localhost:3000/api/discovery`
