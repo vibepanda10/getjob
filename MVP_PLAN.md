@@ -101,10 +101,29 @@ You selected **A) Referral marketplace** as the initial focus.
 
 ## 4.7 Monetization (MVP-compatible)
 - Platform monetization should **not** mediate user-to-user payments.
-- Implement either:
-  1. **Subscription** for premium capabilities, or
-  2. **Credit system** (credits to initiate chats/post interest above free limits)
-- Include free trial constraints (e.g., X matches/messages per month free).
+- Implement **credit system** (selected):
+  - Credits are required to publish helper opportunity posts and unlock additional discovery actions.
+  - Credits are consumed only for high-intent actions (posting and enhanced exposure), not for basic browsing.
+
+### Credit logic (recommended for MVP)
+- **Free tier onboarding:**
+  - 1 free helper post per user (lifetime, first post only).
+  - 5 free "interest" actions per week to test matching.
+  - 1 active match conversation at a time on free tier.
+- **Paid credits:**
+  - Pack S: 20 credits
+  - Pack M: 60 credits (best value)
+  - Pack L: 150 credits
+- **Credit consumption:**
+  - Publish helper post: 10 credits.
+  - Boost post visibility for 7 days: 15 credits.
+  - Exceed weekly free interests: 1 credit per extra interest.
+  - Open more than 1 simultaneous match thread: 3 credits per additional thread.
+- **Fair-use constraints:**
+  - Daily anti-spam cap even for paid users.
+  - Credits are non-refundable once consumed by posting/boosting actions.
+
+This model aligns with your requirement: first post is free, then users move to credits for continued posting and higher activity.
 
 ## 5) Recommended technical stack (fast + low-cost + Vercel-friendly)
 
@@ -174,11 +193,15 @@ Retention rules:
 ## 7) Security and privacy requirements
 
 - Public anonymity by default; reveal handle after mutual match.
+- **Identity reveal control:** helpers can choose to keep identity hidden or reveal it when reaching out to matched seekers.
 - Role-based access control (user/admin).
 - Rate-limiting on auth, messaging, and matching actions.
 - File upload scanning/validation for resume uploads.
 - Full account deletion flow including profile, matches, and messages data handling.
 - Clear privacy policy and terms before launch.
+
+### Resume visibility policy
+- Resume is visible **after match only**.
 
 ## 8) Delivery roadmap
 
@@ -217,11 +240,17 @@ Retention rules:
 
 ## 10) Open decisions for you (short answers needed before coding starts)
 
-1. Subscription vs credits for MVP monetization?
-2. What is included in free tier limits?
-3. Should matched users reveal full profile or only username initially?
-4. Should resume be visible before match or only after?
-5. Preferred legal base country for Terms/Privacy template?
+These are now decided:
+
+1. Monetization: **Credits**.
+2. Free tier: **First helper post free**, then credits; plus capped weekly free interests.
+3. Post-match reveal: **Helper-controlled identity reveal** when contacting matched seekers.
+4. Resume visibility: **After match only**.
+5. Legal base country: **Czech Republic (CZ)**.
+
+Remaining optional decisions for later:
+- Final local CZ legal policy wording review.
+- Exact price points per credit pack after first user tests.
 
 ---
 
