@@ -14,7 +14,7 @@
 
 ## Push 3: matching workflow backend
 - [x] Add route handlers for swipes and match creation.
-- [ ] Add persistence-backed discovery query (replace mock data in API).
+- [ ] Add persistence-backed discovery query (replace mock data in API) and swap runtime store to Prisma persistence.
 - [x] Add message CRUD routes and 60-day cleanup endpoint (`POST /api/messages/cleanup`).
 
 ## What you can run right now

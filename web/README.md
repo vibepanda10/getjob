@@ -83,3 +83,11 @@ curl -X POST http://localhost:3000/api/swipes \
 # 3) list matches
 curl "http://localhost:3000/api/matches?userId=u1"
 ```
+
+
+## MVP demo you can click right now
+
+1. Open `/discover` and keep user as `u1`.
+2. Click **Interested** on a card targeting `u2`.
+3. Switch acting user to `u2`, click **Interested** on a card targeting `u1`.
+4. Open `/matches` and choose user `u1` or `u2` to see the created match and send messages.
