@@ -15,6 +15,11 @@ Execution scaffold for the GET THAT JOB MVP.
 - API sanity endpoints:
   - `GET /api/health`
   - `GET /api/discovery`
+- `GET /api/matches?userId=...`
+- `POST /api/swipes`
+- `GET /api/messages?matchId=...`
+- `POST /api/messages`
+- `POST /api/messages/cleanup`
 - Prisma singleton client (`lib/prisma.ts`) and seed script (`prisma/seed.mjs`).
 
 ## Run locally
@@ -60,3 +65,21 @@ npm run db:seed
 - Auth, backend APIs, and message retention jobs are next implementation steps.
 - See `NEXT_ACTIONS.md` for the autonomous execution queue.
 - Binary assets were replaced with text-based SVG icon files to avoid branch update issues.
+
+
+### Quick API example flow
+
+```bash
+# 1) user A interested in user B
+curl -X POST http://localhost:3000/api/swipes \
+  -H "content-type: application/json" \
+  -d '{"fromUserId":"u1","toUserId":"u2","action":"INTERESTED"}'
+
+# 2) user B interested in user A => match
+curl -X POST http://localhost:3000/api/swipes \
+  -H "content-type: application/json" \
+  -d '{"fromUserId":"u2","toUserId":"u1","action":"INTERESTED"}'
+
+# 3) list matches
+curl "http://localhost:3000/api/matches?userId=u1"
+```

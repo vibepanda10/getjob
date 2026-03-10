@@ -13,9 +13,9 @@
 - [x] Add protected routes for `/matches`, `/profile`, `/admin`.
 
 ## Push 3: matching workflow backend
-- [ ] Add route handlers for swipes and match creation.
+- [x] Add route handlers for swipes and match creation.
 - [ ] Add persistence-backed discovery query (replace mock data in API).
-- [ ] Add message model CRUD route and 60-day cleanup cron job.
+- [x] Add message CRUD routes and 60-day cleanup endpoint (`POST /api/messages/cleanup`).
 
 ## What you can run right now
 ```bash
